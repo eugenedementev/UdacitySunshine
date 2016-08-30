@@ -266,6 +266,8 @@ public class WeatherProvider extends ContentProvider {
         // Student: Use the uriMatcher to match the WEATHER and LOCATION URI's we are going to
         // handle.  If it doesn't match these, throw an UnsupportedOperationException.
         final int match = sUriMatcher.match(uri);
+        if (null == selection)
+            selection = "1";
         switch (match){
             case WEATHER:{
                 rowsDeleted = database.delete(
