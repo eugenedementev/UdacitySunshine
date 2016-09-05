@@ -55,6 +55,7 @@ public class ForecastAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_forecast, parent, false);
 
+
         return view;
     }
 
@@ -66,7 +67,7 @@ public class ForecastAdapter extends CursorAdapter {
         // our view is pretty simple here --- just a text view
         // we'll keep the UI functional with a simple (and slow!) binding.
 
-        TextView tv = (TextView)view;
+        TextView tv = (TextView)view.findViewById(R.id.list_item_forecast_textview);
         tv.setText(convertCursorRowToUXFormat(cursor));
     }
 }
