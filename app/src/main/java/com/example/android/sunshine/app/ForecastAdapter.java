@@ -55,6 +55,7 @@ public class ForecastAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_forecast, parent, false);
 
+
         return view;
     }
 

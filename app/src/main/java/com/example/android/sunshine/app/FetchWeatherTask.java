@@ -52,10 +52,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
     private boolean DEBUG = true;
 
-    /* The date/time conversion code is going to be moved outside the asynctask later,
-     * so for convenience we're breaking it out into its own method now.
-     */
-
     /**
      * Helper method to handle insertion of a new location in the weather database.
      *
@@ -74,7 +70,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
         Cursor locationCursor = mContext.getContentResolver().query(
                 WeatherContract.LocationEntry.CONTENT_URI,
                 new String[]{WeatherContract.LocationEntry._ID},
-                WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " = ?",
+                WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " =?",
                 new String[]{locationSetting},
                 null
         );
@@ -93,8 +89,10 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
             locationId = ContentUris.parseId(inseredUri);
         }
+        locationCursor.close();
         return locationId;
     }
+
 
     /**
      * Take the String representing the complete forecast in JSON Format and

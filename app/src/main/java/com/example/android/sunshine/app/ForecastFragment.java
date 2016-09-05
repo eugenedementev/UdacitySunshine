@@ -3,11 +3,7 @@ package com.example.android.sunshine.app;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,11 +17,9 @@ import com.example.android.sunshine.app.data.WeatherContract;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ForecastFragment extends Fragment {
 
     private ForecastAdapter mForecastAdapter;
-
-    private static final int FORECAST_LOADER = 0;
 
     public ForecastFragment() {
     }
@@ -34,19 +28,19 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        String locationSetings = Utility.getPreferredLocation(getActivity());
-//
-//        String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
-//        Uri weatherForLocatinUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationSetings,System.currentTimeMillis());
-//
-//        Cursor cursor = getActivity().getContentResolver().query(
-//                weatherForLocatinUri,
-//                null,
-//                null,
-//                null,
-//                sortOrder
-//        );
-        mForecastAdapter = new ForecastAdapter(getActivity(),null,0);
+        String locationSetings = Utility.getPreferredLocation(getActivity());
+
+        String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
+        Uri weatherForLocatinUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationSetings,System.currentTimeMillis());
+
+        Cursor cursor = getActivity().getContentResolver().query(
+                weatherForLocatinUri,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+        mForecastAdapter = new ForecastAdapter(getActivity(),cursor,0);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
@@ -80,14 +74,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private void updateWeather(){
         FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
         String location = Utility.getPreferredLocation(getActivity());
-        super.onStart();
         weatherTask.execute(location);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getLoaderManager().initLoader(FORECAST_LOADER,null,this);
-        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -97,13 +84,6 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
         Uri weatherForLocatinUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationSetings,System.currentTimeMillis());
 
-        Cursor cursor = getActivity().getContentResolver().query(
-                weatherForLocatinUri,
-                null,
-                null,
-                null,
-                sortOrder
-        );
         return new CursorLoader(
                 getActivity(),
                 weatherForLocatinUri,
