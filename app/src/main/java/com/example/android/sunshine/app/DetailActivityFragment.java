@@ -21,6 +21,7 @@ import android.widget.TextView;
 public class DetailActivityFragment extends Fragment {
 
     private ShareActionProvider mShareActionProvider;
+    private String mForecastStr;
     private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
     private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
 
@@ -34,8 +35,11 @@ public class DetailActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         Intent intent = getActivity().getIntent();
         String weatherFromIncomingIntent = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)){
-            ((TextView)rootView.findViewById(R.id.detail_text)).setText(weatherFromIncomingIntent);
+        if (intent != null /*&& intent.hasExtra(Intent.EXTRA_TEXT)*/){
+            mForecastStr = intent.getDataString();
+        }
+        if (null != mForecastStr){
+            ((TextView)rootView.findViewById(R.id.detail_text)).setText(mForecastStr);
         }
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
