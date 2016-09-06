@@ -5,6 +5,6 @@
         android:id="@+id/menu_item_share"
         app:showAsAction="always"
         android:title="@string/share_menu_item"
-        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         />
 </menu>
