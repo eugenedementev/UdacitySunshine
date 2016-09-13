@@ -79,7 +79,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-//            updateWeather();
+            updateWeather();
             return true;
         }
         return super.onOptionsItemSelected(item);
