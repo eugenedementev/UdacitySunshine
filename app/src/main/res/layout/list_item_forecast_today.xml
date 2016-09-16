@@ -50,7 +50,7 @@
             android:id="@+id/list_item_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            />
         <TextView
             android:text="Clear or cloudly"
             android:layout_width="wrap_content"
