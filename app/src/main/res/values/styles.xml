@@ -23,13 +23,7 @@
         for two-pane layout -->
     </style>
 
-    <style name="SettingsTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar" tools:targetApi="ice_cream_sandwich">
-        <item name="android:actionBarStyle">@style/ActionBar.V14.Sunshine.NoTitle</item>
+    <style name="SettingsTheme" parent="AppTheme">
     </style>
-
-    <style name="ActionBar.V14.Sunshine.NoTitle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse" tools:targetApi="ice_cream_sandwich">
-                <item name="android:background">@color/sunshine_blue</item>
-                <item name="android:height">56dp</item>
-        </style>
 
 </resources>

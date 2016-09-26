@@ -32,8 +32,7 @@ public class ForecastAdapter extends CursorAdapter {
             descriptionView = (TextView) view.findViewById(R.id.list_item_forecast_textview);
             highTempView = (TextView) view.findViewById(R.id.list_item_high_textview);
             lowTempView = (TextView) view.findViewById(R.id.list_item_low_textview);
-        }
-    }
+        }    }
 
     public ForecastAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
