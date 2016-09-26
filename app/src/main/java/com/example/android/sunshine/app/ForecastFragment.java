@@ -33,6 +33,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private final String POSITION_KEY = "PKFWL";
     private int mPosition;
     private ListView mListView;
+    private boolean mUseTodayLayout;
 
     private static final String[] FORECAST_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name, since
@@ -124,7 +125,16 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             mPosition = savedInstanceState.getInt(POSITION_KEY);
         }
 
+        mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
+
         return rootView;
+    }
+
+    public void setUseTodayLayout(boolean useTodayLayout){
+        mUseTodayLayout = useTodayLayout;
+        if (mForecastAdapter != null){
+            mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
+        }
     }
 
     @Override
