@@ -18,13 +18,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/fragment_detail_day_textview" />
+                android:id="@+id/fragment_detail_day_textview"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:text="Today"
+                />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_detail_date_textview"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="16sp"
+                android:textColor="@color/dark_grey"
+                android:text="June 19,2016"
+                />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -37,17 +47,30 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     >
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fragment_detail_high_textview" />
+                        android:id="@+id/fragment_detail_high_textview"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/black"
+                        android:textSize="96sp"
+                        android:gravity="center|center_horizontal"
+                        android:text="22^"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fragment_detail_min_textview" />
+                        android:id="@+id/fragment_detail_min_textview"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="48sp"
+                        android:gravity="center|center_horizontal"
+                        android:text="12^"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -62,14 +85,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/fragment_detail_weather_icon"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:layout_gravity="center|center_horizontal"
+                        android:src="@drawable/art_clear"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/fragment_detail_description_textview"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center|center_horizontal"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="@color/dark_grey"
+                        android:textAppearance="?android:textAppearanceLarge"
+                        android:text="Clear"
                         />
 
                 </LinearLayout>
@@ -80,19 +110,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_detail_humidity_textview"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/dark_grey"
+                android:paddingTop="4dp"
+                android:text="100%"
+                />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_detail_wind_textview"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/dark_grey"
+                android:paddingTop="4dp"
+                android:text="100 km/H NW"
+                />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_detail_pressure"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/dark_grey"
+                android:paddingTop="4dp"
+                android:text="10000 kPa"
+                />
 
     </LinearLayout>
 </ScrollView>
