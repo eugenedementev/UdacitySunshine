@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.app.service.SunshineService;
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
@@ -149,9 +150,12 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather() {
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
+//        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
         String location = Utility.getPreferredLocation(getActivity());
-        weatherTask.execute(location);
+//        weatherTask.execute(location);
+        Intent updateWeatherIntent = new Intent(getActivity(), SunshineService.class);
+        updateWeatherIntent.putExtra(SunshineService.LOCATION_QUERY_EXTRA,location);
+        getActivity().startService(updateWeatherIntent);
     }
 
     @Override
