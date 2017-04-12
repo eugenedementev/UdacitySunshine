@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
@@ -73,11 +74,6 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         // Add this line in order for this fragment to handle menu events.
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.forecastfragment, menu);
     }
 
     @Override
@@ -182,6 +178,20 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         mForecastAdapter.swapCursor(cursor);
         if (mPosition != ListView.INVALID_POSITION){
             mListView.smoothScrollToPosition(mPosition);
+        }
+        updateEmptyMessage();
+    }
+
+    private void updateEmptyMessage() {
+        if (mForecastAdapter.getCount() == 0){
+            TextView noDataTextView = (TextView) getView().findViewById(R.id.listview_forecast_empty);
+            if (null != noDataTextView){
+                int message = R.string.empty_string;
+                if (!Utility.isNetworkAvailable(getActivity())){
+                    message = R.string.no_internet_connection;
+                }
+                noDataTextView.setText(message);
+            }
         }
     }
 
