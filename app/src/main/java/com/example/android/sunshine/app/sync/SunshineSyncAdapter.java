@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.IntDef;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
@@ -40,9 +41,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Vector;
+
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final int SYNC_INTERVAL = 60 * 180;
@@ -64,6 +69,15 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({LOCATION_STATUS_OK,LOCATION_STATUS_SERVER_DOWN,LOCATION_STATUS_SERVER_INVALID,LOCATION_STATUS_UNKNOWN})
+    public @interface LocationStatus {}
+
+    public static final int LOCATION_STATUS_OK = 0;
+    public static final int LOCATION_STATUS_SERVER_DOWN = 1;
+    public static final int LOCATION_STATUS_SERVER_INVALID = 2;
+    public static final int LOCATION_STATUS_UNKNOWN = 3;
 
     public SunshineSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -133,6 +147,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.
+                setLocationPreference(getContext(),LOCATION_STATUS_SERVER_DOWN);
                 return;
             }
             forecastJsonStr = buffer.toString();
@@ -142,8 +157,11 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attemping
             // to parse it.
+            setLocationPreference(getContext(),LOCATION_STATUS_SERVER_DOWN);
             return ;
         } catch (JSONException e) {
+            Log.e(e.getMessage(),locationQuery);
+            setLocationPreference(getContext(),LOCATION_STATUS_SERVER_INVALID);
             e.printStackTrace();
         } finally {
             if (urlConnection != null) {
@@ -349,9 +367,11 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             }
 
             Log.d(LOG_TAG, "FetchWeatherTask Complete. " + insered + " Inserted");
+            setLocationPreference(getContext(),LOCATION_STATUS_OK);
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
+            setLocationPreference(getContext(),LOCATION_STATUS_SERVER_INVALID);
             e.printStackTrace();
         }
     }
@@ -508,5 +528,12 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
             }
         }
+    }
+
+    static private void setLocationPreference (Context context,@LocationStatus int locationStatus){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(context.getString(R.string.pref_location_key),locationStatus);
+        editor.commit();
     }
 }
