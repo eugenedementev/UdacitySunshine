@@ -105,9 +105,11 @@
     <string name="pref_enable_notifications_false">Not Enabled</string>
     <string name="pref_enable_notifications_default" translatable="false">true</string>
     
-    <string name="empty_string">No Weather Information Available</string>
+    <string name="empty_string">No Weather Information Available.</string>
     <string name="no_internet_connection">There is no internet connection.</string>
     
     <string name="pref_location_status_key">loc-status</string>
+    <string name="empty_forecast_list_server_down">No weather information available. The server is not returning data.</string>
+    <string name="empty_forecast_list_server_error">No weather information available. The server is not returning valid data. Please check for an updated version of Sunshine.</string>
 
 </resources>
